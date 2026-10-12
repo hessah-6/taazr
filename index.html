@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تآزر | صحيفة الرياضات الإلكترونية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#1B0629;
+    --bg-panel:#2C0B40;
+    --bg-panel-2:#34104C;
+    --line:#452060;
+    --cream:#FBF3DA;
+    --cream-dim:#D9CFC0;
+    --gold:#D4A94A;
+    --gold-dim:#8B6F35;
+    --cyan:#49D6CE;
+    --muted:#B9A6C9;
+    --danger:#E2536B;
+    --radius-s:6px;
+    --radius-m:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg-deep);color:var(--cream);font-family:'Tajawal', system-ui, sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  h1,h2,h3,h4,.brand{font-family:'El Messiri', 'Tajawal', system-ui, sans-serif;margin:0;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .tab{font-variant-numeric:tabular-nums;}
+  ::selection{background:var(--gold);color:var(--bg-deep);}
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px;}
+  @media (prefers-reduced-motion: reduce){*{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+  .section{padding:56px 0;border-bottom:1px solid var(--line);}
+  .section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:30px;gap:16px;flex-wrap:wrap;}
+  .section-head h2{font-size:28px;color:var(--cream);font-weight:700;}
+  .section-head .desc{color:var(--muted);font-size:14px;margin-top:6px;}
+  .see-all{font-size:14px;color:var(--gold);white-space:nowrap;border-bottom:1px solid transparent;}
+  .see-all:hover{border-color:var(--gold);}
+
+  /* ===== Header (single merged row) ===== */
+  header{background:rgba(27,6,41,0.94);position:sticky;top:0;z-index:40;backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+  .header-top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:78px;gap:14px;}
+  .header-date{justify-self:start;font-size:13px;color:var(--muted);white-space:nowrap;}
+  .header-icons{justify-self:end;display:flex;align-items:center;gap:8px;}
+  .icon-btn{
+    width:36px;height:36px;border-radius:50%;background:transparent;border:1px solid var(--line);
+    color:var(--cream-dim);display:flex;align-items:center;justify-content:center;cursor:pointer;
+    font-size:15px;transition:all .2s ease;
+  }
+  .icon-btn:hover{border-color:var(--gold-dim);color:var(--cream);}
+  .brandblock{display:flex;align-items:center;gap:12px;justify-self:center;}
+  .logo-img{width:46px;height:46px;flex-shrink:0;}
+  .brand-text .brand{font-size:23px;font-weight:700;color:var(--cream);letter-spacing:0.5px;}
+  .brand-text .sub{font-size:10.5px;color:var(--gold);letter-spacing:1.4px;margin-top:2px;}
+
+  .navstrip{background:var(--bg-panel);border-bottom:1px solid var(--line);}
+  .navstrip-inner{display:flex;align-items:center;height:52px;gap:22px;position:relative;}
+  nav{display:flex;align-items:center;gap:24px;}
+  nav a, .nav-drop > button{font-size:14px;color:var(--cream-dim);position:relative;padding:6px 0;transition:color .2s ease;background:none;border:none;cursor:pointer;font-family:'Tajawal',sans-serif;}
+  nav a:hover, .nav-drop > button:hover{color:var(--cream);}
+  nav a.active{color:var(--gold);}
+  nav a.active::after{content:"";position:absolute;right:0;left:0;bottom:0;height:2px;background:var(--gold);border-radius:2px;}
+  .navtoggle{display:none;background:none;border:1px solid var(--line);color:var(--cream);padding:6px 10px;border-radius:8px;cursor:pointer;}
+  .nav-drop{position:relative;}
+  .nav-drop > button{display:flex;align-items:center;gap:4px;}
+  .nav-drop-panel{
+    display:none;position:absolute;top:100%;right:0;background:var(--bg-panel-2);border:1px solid var(--line);
+    border-radius:var(--radius-s);padding:8px;min-width:160px;margin-top:10px;z-index:50;
+    box-shadow:0 10px 30px rgba(0,0,0,0.35);
+  }
+  .nav-drop-panel.open{display:block;}
+  .nav-drop-panel a{display:block;padding:9px 12px;font-size:13.5px;border-radius:6px;}
+  .nav-drop-panel a:hover{background:var(--bg-panel);color:var(--cream);}
+  @media (max-width:940px){
+    nav{position:absolute;inset-inline:0;top:100%;background:var(--bg-panel);flex-direction:column;align-items:flex-start;padding:16px 28px;gap:14px;border-bottom:1px solid var(--line);display:none;z-index:39;}
+    nav.open{display:flex;}
+    .navtoggle{display:block;}
+    .nav-drop{width:100%;}
+    .nav-drop-panel{position:static;margin-top:8px;display:none;box-shadow:none;border:none;background:var(--bg-panel-2);}
+    .nav-drop-panel.open{display:block;}
+  }
+
+  /* ===== Hero ===== */
+  .hero{position:relative;padding:52px 0 48px;border-bottom:1px solid var(--line);overflow:hidden;}
+  .bracket-bg{position:absolute;inset:0;opacity:0.35;pointer-events:none;}
+  .hero-grid{position:relative;display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:end;}
+  @media (max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+  .kicker{display:inline-flex;align-items:center;gap:8px;color:var(--cyan);font-size:14px;font-weight:700;margin-bottom:18px;}
+  .dot-live{width:8px;height:8px;border-radius:50%;background:var(--cyan);animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(73,214,206,.55);}70%{box-shadow:0 0 0 9px rgba(73,214,206,0);}100%{box-shadow:0 0 0 0 rgba(73,214,206,0);}}
+  .hero h1{font-size:clamp(30px, 5vw, 52px);line-height:1.15;font-weight:700;color:var(--cream);margin-bottom:18px;}
+  .hero p.dek{font-size:16.5px;color:var(--muted);max-width:56ch;line-height:1.8;margin-bottom:24px;}
+  .hero-meta{display:flex;gap:20px;color:var(--cream-dim);font-size:14px;flex-wrap:wrap;}
+  .hero-meta span{display:flex;align-items:center;gap:6px;}
+  .scorecard{background:linear-gradient(160deg, var(--bg-panel-2), var(--bg-panel));border:1px solid var(--line);border-radius:var(--radius-m);padding:24px;}
+  .scorecard .tourney-name{font-size:13px;color:var(--gold);margin-bottom:14px;}
+  .versus{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .team{display:flex;flex-direction:column;align-items:center;gap:10px;flex:1;}
+  .team-badge{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'El Messiri', sans-serif;font-weight:700;font-size:19px;color:var(--bg-deep);}
+  .team-name{font-size:13.5px;color:var(--cream);}
+  .score{font-size:32px;font-weight:700;color:var(--cream);}
+  .score.win{color:var(--gold);}
+  .vs-mid{display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--muted);font-size:12px;}
+  .map-pips{display:flex;gap:5px;margin-top:6px;}
+  .pip{width:7px;height:7px;border-radius:50%;background:var(--line);}
+  .pip.on{background:var(--cyan);}
+  .scorecard-foot{display:flex;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);}
+
+  /* ===== Live ===== */
+  .livewrap{background:var(--bg-panel);}
+  .live-row{display:flex;gap:16px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin;}
+  .live-row::-webkit-scrollbar{height:6px;}
+  .live-row::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px;}
+  .live-chip{flex:0 0 auto;background:var(--bg-panel-2);border:1px solid var(--line);border-radius:var(--radius-m);padding:16px 18px;min-width:230px;}
+  .live-chip .game-tag{font-size:11px;color:var(--muted);margin-bottom:10px;}
+  .live-chip .lc-versus{display:flex;justify-content:space-between;align-items:center;font-size:14px;}
+  .live-chip .lc-versus b{font-size:16px;color:var(--cream);}
+  .live-chip .lc-score{color:var(--gold);font-weight:700;}
+  .live-chip .lc-status{margin-top:10px;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--cyan);}
+
+  /* ===== Generic pill tabs ===== */
+  .pill-tabs{display:flex;gap:10px;margin-bottom:26px;flex-wrap:wrap;}
+  .pill-tab{background:var(--bg-panel);border:1px solid var(--line);color:var(--cream-dim);padding:9px 18px;border-radius:999px;font-size:13px;cursor:pointer;transition:all .2s ease;font-family:'Tajawal',sans-serif;}
+  .pill-tab.active{background:var(--gold);color:var(--bg-deep);border-color:var(--gold);font-weight:700;}
+
+  /* ===== News (vertical list) ===== */
+  .news-feature{
+    background:linear-gradient(0deg, rgba(27,6,41,0.94) 10%, rgba(27,6,41,0.35) 60%, rgba(27,6,41,0.1)),
+      radial-gradient(circle at 75% 15%, rgba(212,169,74,0.22), transparent 55%), var(--bg-panel-2);
+    border:1px solid var(--line);border-radius:var(--radius-m);padding:30px;margin-bottom:28px;min-height:230px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+  }
+  .news-feature h3{font-size:24px;color:var(--cream);line-height:1.4;margin-bottom:10px;}
+  .news-feature p{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 12px;max-width:60ch;}
+  .game-chip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;padding:4px 11px;border-radius:999px;font-weight:700;width:fit-content;}
+  .news-list{display:flex;flex-direction:column;gap:1px;background:var(--line);border-radius:var(--radius-m);overflow:hidden;}
+  .news-row{background:var(--bg-panel);display:grid;grid-template-columns:64px 1fr;gap:16px;padding:16px 18px;align-items:center;transition:background .2s ease;}
+  .news-row:hover{background:var(--bg-panel-2);}
+  .news-thumb{width:64px;height:64px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'El Messiri',sans-serif;font-weight:700;font-size:20px;color:var(--bg-deep);flex-shrink:0;}
+  .news-row h4{font-size:14.5px;color:var(--cream);line-height:1.5;margin-bottom:8px;font-weight:500;}
+  .news-row-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .news-time{font-size:12px;color:var(--muted);}
+
+  /* ===== Tournaments ===== */
+  .tourney-list{display:flex;flex-direction:column;gap:14px;}
+  .tourney-row{background:var(--bg-panel);border:1px solid var(--line);border-radius:var(--radius-m);padding:20px 22px;display:grid;grid-template-columns:1fr auto auto auto;align-items:center;gap:18px;}
+  @media (max-width:800px){.tourney-row{grid-template-columns:1fr;text-align:center;}}
+  .tourney-row h3{font-size:16px;color:var(--cream);margin-bottom:6px;}
+  .tourney-row .meta{font-size:12.5px;color:var(--muted);display:flex;gap:14px;flex-wrap:wrap;}
+  @media (max-width:800px){.tourney-row .meta{justify-content:center;}}
+  .reg-status{font-size:12px;padding:6px 13px;border-radius:999px;border:1px solid var(--line);white-space:nowrap;}
+  .reg-status.open{color:var(--cyan);border-color:var(--cyan);}
+  .reg-status.soon{color:var(--gold);border-color:var(--gold-dim);}
+  .reg-status.closed{color:var(--muted);}
+  .reg-count{font-size:12.5px;color:var(--cream-dim);white-space:nowrap;}
+  .reg-btn{font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;padding:10px 20px;border-radius:var(--radius-s);border:none;cursor:pointer;white-space:nowrap;background:var(--gold);color:var(--bg-deep);transition:filter .2s ease;}
+  .reg-btn:hover{filter:brightness(1.08);}
+  .reg-btn[disabled]{background:transparent;border:1px solid var(--line);color:var(--muted);cursor:not-allowed;}
+
+  /* ===== Standings: league table ===== */
+  .standings-layout{display:grid;grid-template-columns:1.5fr 1fr;gap:36px;}
+  @media (max-width:900px){.standings-layout{grid-template-columns:1fr;}}
+  table.standings{width:100%;border-collapse:collapse;font-size:14px;}
+  table.standings th{text-align:right;font-weight:500;color:var(--muted);font-size:12px;padding:0 10px 12px;border-bottom:1px solid var(--line);}
+  table.standings td{padding:13px 10px;border-bottom:1px solid var(--line);color:var(--cream-dim);}
+  table.standings tr:last-child td{border-bottom:none;}
+  table.standings td.rank{color:var(--gold);font-weight:700;width:30px;}
+  table.standings td.team{color:var(--cream);font-weight:500;}
+  table.standings td.num{font-variant-numeric:tabular-nums;text-align:center;}
+  .upcoming-box{background:var(--bg-panel);border:1px solid var(--line);border-radius:var(--radius-m);padding:22px;}
+  .upcoming-box h4{font-size:14px;color:var(--cream);margin-bottom:16px;}
+  .upcoming-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px dashed var(--line);font-size:13px;}
+  .upcoming-row:last-child{border-bottom:none;padding-bottom:0;}
+  .upcoming-row .match{color:var(--cream-dim);}
+  .upcoming-row .time{color:var(--gold);font-weight:700;}
+  .empty-state{text-align:center;padding:50px 20px;color:var(--muted);background:var(--bg-panel);border:1px dashed var(--line);border-radius:var(--radius-m);}
+  .empty-state .big{font-size:32px;margin-bottom:10px;}
+
+  /* ===== Standings: bracket ===== */
+  .bracket-scroll{overflow-x:auto;padding-bottom:14px;}
+  .bracket-block{margin-bottom:26px;}
+  .bracket-label{font-size:12px;color:var(--muted);margin-bottom:12px;text-transform:none;display:flex;align-items:center;gap:8px;}
+  .bracket-label.win{color:var(--gold);}
+  .bracket-label.lose{color:var(--muted);}
+  .bracket-rounds{display:flex;gap:36px;min-width:max-content;padding:4px 2px;}
+  .bracket-round{display:flex;flex-direction:column;justify-content:space-around;gap:18px;min-width:190px;}
+  .bracket-round-title{font-size:11px;color:var(--muted);text-align:center;margin-bottom:6px;}
+  .bmatch{background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;position:relative;}
+  .bmatch::after{content:"";position:absolute;top:50%;left:-18px;width:18px;height:1px;background:var(--line);}
+  .bracket-round:first-child .bmatch::after{display:none;}
+  .bteam{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;font-size:12.5px;color:var(--cream-dim);}
+  .bteam.winner{color:var(--cream);font-weight:700;background:rgba(212,169,74,0.08);}
+  .bteam + .bteam{border-top:1px solid var(--line);}
+  .bteam .bscore{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:700;}
+  .bteam.winner .bscore{color:var(--gold);}
+
+  /* ===== Player stats ===== */
+  .player-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  @media (max-width:980px){.player-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.player-grid{grid-template-columns:1fr;}}
+  .player-card{background:var(--bg-panel);border:1px solid var(--line);border-radius:var(--radius-m);padding:20px;text-align:center;}
+  .player-badge{width:64px;height:64px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-family:'El Messiri',sans-serif;font-weight:700;font-size:20px;color:var(--bg-deep);}
+  .player-card h4{font-size:15px;color:var(--cream);margin-bottom:4px;}
+  .player-card .p-team{font-size:12px;color:var(--muted);margin-bottom:16px;}
+  .p-stats{display:flex;justify-content:space-around;border-top:1px solid var(--line);padding-top:14px;}
+  .p-stat{display:flex;flex-direction:column;gap:4px;}
+  .p-stat .v{font-size:16px;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums;}
+  .p-stat .l{font-size:10.5px;color:var(--muted);}
+
+  /* ===== Media grids (highlights / interviews / podcast / docs) ===== */
+  .media-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  @media (max-width:900px){.media-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:600px){.media-grid{grid-template-columns:1fr;}}
+  .media-card{background:var(--bg-panel);border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;transition:border-color .2s ease;}
+  .media-card:hover{border-color:var(--gold-dim);}
+  .media-thumb{height:120px;position:relative;display:flex;align-items:center;justify-content:center;}
+  .media-thumb .play-overlay{width:42px;height:42px;border-radius:50%;background:rgba(27,6,41,0.55);border:1.5px solid var(--cream);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:14px;}
+  .media-body{padding:16px;}
+  .media-body h4{font-size:14px;color:var(--cream);line-height:1.5;margin-bottom:8px;}
+  .media-meta{font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;}
+
+  .interview-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
+  @media (max-width:800px){.interview-grid{grid-template-columns:1fr;}}
+  .spotlight{background:var(--bg-panel);border:1px solid var(--line);border-radius:var(--radius-m);padding:24px;}
+  .spotlight .tag{font-size:12px;color:var(--gold);margin-bottom:14px;}
+  .spotlight blockquote{margin:0 0 16px;font-family:'El Messiri', sans-serif;font-size:19px;line-height:1.7;color:var(--cream);}
+  .spotlight .who{display:flex;align-items:center;gap:12px;}
+  .who-badge{width:38px;height:38px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--bg-deep);font-family:'El Messiri',sans-serif;font-size:13px;}
+  .who-name{font-size:13.5px;color:var(--cream);}
+  .who-role{font-size:11.5px;color:var(--muted);}
+
+  .ep-list{display:flex;flex-direction:column;gap:14px;}
+  .ep-row{background:var(--bg-panel);border:1px solid var(--line);border-radius:var(--radius-m);padding:16px 18px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;}
+  @media (max-width:700px){.ep-row{grid-template-columns:auto 1fr;}}
+  .play-btn{width:44px;height:44px;border-radius:50%;background:var(--gold);border:none;color:var(--bg-deep);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:15px;transition:filter .2s ease;}
+  .play-btn:hover{filter:brightness(1.08);}
+  .ep-body h4{font-size:14.5px;color:var(--cream);margin-bottom:6px;}
+  .ep-body .ep-meta{font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;}
+  .ep-type{font-size:10.5px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted);}
+  .waveform{display:flex;align-items:flex-end;gap:2px;height:22px;}
+  .waveform span{width:3px;background:var(--line);border-radius:2px;}
+  .ep-thumb{width:60px;height:44px;border-radius:8px;position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .ep-thumb .mini-play{width:22px;height:22px;border-radius:50%;background:rgba(27,6,41,0.6);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:9px;}
+  @media (max-width:700px){.ep-dur{display:none;}}
+
+  /* ===== Games section ===== */
+  .games-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media (max-width:940px){.games-grid{grid-template-columns:1fr;}}
+  .game-widget{background:var(--bg-panel);border:1px solid var(--line);border-radius:var(--radius-m);padding:22px;display:flex;flex-direction:column;}
+  .game-widget h3{font-size:16px;color:var(--cream);margin-bottom:6px;}
+  .game-widget .gw-desc{font-size:12.5px;color:var(--muted);margin-bottom:16px;line-height:1.7;}
+  .gw-play-btn{background:var(--gold);border:none;color:var(--bg-deep);font-weight:700;padding:11px 18px;border-radius:var(--radius-s);font-family:'Tajawal',sans-serif;cursor:pointer;font-size:13.5px;transition:filter .2s ease;}
+  .gw-play-btn:hover{filter:brightness(1.08);}
+  .gw-stage{margin-top:16px;background:var(--bg-deep);border:1px dashed var(--line);border-radius:10px;padding:14px;display:none;}
+  .gw-stage.on{display:block;}
+  .aim-area{position:relative;height:220px;background:var(--bg-panel-2);border-radius:8px;overflow:hidden;}
+  .aim-target{position:absolute;width:34px;height:34px;border-radius:50%;background:var(--cyan);border:none;cursor:pointer;}
+  .gw-hud{display:flex;justify-content:space-between;font-size:12.5px;color:var(--cream-dim);margin-bottom:10px;}
+  .gw-result{text-align:center;font-size:14px;color:var(--gold);font-weight:700;margin-top:10px;min-height:20px;}
+  .trivia-q{font-size:14px;color:var(--cream);margin-bottom:12px;line-height:1.7;}
+  .trivia-opts{display:flex;flex-direction:column;gap:8px;}
+  .trivia-opt{background:var(--bg-panel-2);border:1px solid var(--line);color:var(--cream-dim);padding:10px 14px;border-radius:8px;font-size:13px;cursor:pointer;text-align:right;font-family:'Tajawal',sans-serif;transition:all .15s ease;}
+  .trivia-opt:hover{border-color:var(--gold-dim);}
+  .trivia-opt.correct{background:rgba(73,214,206,0.15);border-color:var(--cyan);color:var(--cream);}
+  .trivia-opt.wrong{background:rgba(226,83,107,0.15);border-color:var(--danger);color:var(--cream);}
+  .click-big-btn{width:100%;padding:34px;background:var(--gold);border:none;border-radius:10px;color:var(--bg-deep);font-weight:700;font-size:16px;cursor:pointer;font-family:'Tajawal',sans-serif;}
+  .click-big-btn:active{filter:brightness(0.94);}
+
+  /* ===== Newsletter ===== */
+  .newsletter-panel{background:linear-gradient(135deg, var(--bg-panel-2), var(--bg-panel));border:1px solid var(--line);border-radius:var(--radius-m);padding:38px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:32px;}
+  .newsletter-panel h3{font-size:21px;color:var(--cream);margin-bottom:8px;}
+  .newsletter-panel p{color:var(--muted);font-size:14px;margin:0;}
+  .sub-form{display:flex;gap:10px;flex-wrap:wrap;}
+  .sub-form input{background:var(--bg-deep);border:1px solid var(--line);color:var(--cream);padding:12px 16px;border-radius:var(--radius-s);font-family:'Tajawal',sans-serif;font-size:14px;min-width:220px;}
+  .sub-form input:focus{outline:2px solid var(--cyan);outline-offset:1px;}
+  .sub-form button{background:var(--gold);border:none;color:var(--bg-deep);font-weight:700;padding:12px 22px;border-radius:var(--radius-s);font-family:'Tajawal',sans-serif;font-size:14px;cursor:pointer;transition:filter .2s ease;}
+  .sub-form button:hover{filter:brightness(1.08);}
+  .form-note{width:100%;font-size:12px;color:var(--cyan);margin-top:6px;min-height:16px;}
+  .archive-list{display:flex;flex-direction:column;gap:1px;background:var(--line);border-radius:var(--radius-m);overflow:hidden;}
+  .archive-row{background:var(--bg-panel);display:flex;justify-content:space-between;align-items:center;padding:16px 20px;gap:12px;flex-wrap:wrap;}
+  .archive-row .num{color:var(--gold);font-size:12px;font-weight:700;}
+  .archive-row .title{color:var(--cream);font-size:14px;}
+  .archive-row .date{color:var(--muted);font-size:12px;}
+
+  /* ===== World map ===== */
+  .worldmap-wrap{padding:56px 0 44px;}
+  .map-shell{background:var(--bg-panel);border:1px solid var(--line);border-radius:var(--radius-m);padding:20px;overflow:hidden;}
+  .map-marker{cursor:pointer;}
+  .map-marker circle.pulse{animation:mappulse 2.2s infinite;}
+  @keyframes mappulse{0%{opacity:0.55;}70%{opacity:0;}100%{opacity:0;}}
+  .map-marker text{font-family:'Tajawal',sans-serif;font-size:11px;fill:var(--cream-dim);}
+  .map-legend{display:flex;gap:18px;justify-content:center;margin-top:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);}
+  .map-legend span{display:flex;align-items:center;gap:6px;}
+
+  /* ===== Modal ===== */
+  .modal-overlay{position:fixed;inset:0;background:rgba(10,2,16,0.72);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;}
+  .modal-overlay.open{display:flex;}
+  .modal-box{background:var(--bg-panel);border:1px solid var(--line);border-radius:var(--radius-m);max-width:420px;width:100%;padding:24px;max-height:80vh;overflow-y:auto;}
+  .modal-box h3{font-size:16px;color:var(--cream);margin-bottom:16px;}
+  .modal-news-item{padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer;}
+  .modal-news-item:last-child{border-bottom:none;}
+  .modal-news-item .mt{font-size:13.5px;color:var(--cream);margin-bottom:4px;}
+  .modal-news-item .md{font-size:12px;color:var(--muted);}
+  .modal-close{margin-top:14px;background:transparent;border:1px solid var(--line);color:var(--cream-dim);padding:9px 16px;border-radius:var(--radius-s);cursor:pointer;font-family:'Tajawal',sans-serif;width:100%;}
+
+  footer{padding:44px 0 30px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr repeat(3, 1fr);gap:30px;margin-bottom:30px;}
+  @media (max-width:800px){.foot-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:480px){.foot-grid{grid-template-columns:1fr;}}
+  .foot-grid h4{font-size:14px;color:var(--cream);margin-bottom:14px;}
+  .foot-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .foot-grid a{font-size:13px;color:var(--muted);}
+  .foot-grid a:hover{color:var(--cream);}
+  .foot-brand p{color:var(--muted);font-size:13px;line-height:1.8;max-width:32ch;margin-top:12px;}
+  .foot-bottom{border-top:1px solid var(--line);padding-top:20px;display:flex;justify-content:space-between;color:var(--muted);font-size:12px;flex-wrap:wrap;gap:10px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap header-top">
+    <div class="header-date">الخميس، ٢٥ ربيع الآخر ١٤٤٨هـ</div>
+    <div class="brandblock">
+      <img class="logo-img" src="data:image/png;base64,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" alt="شعار تآزر">
+      <div class="brand-text">
+        <div class="brand">تآزر</div>
+        <div class="sub">TAAZR — صحيفة الرياضات الإلكترونية</div>
+      </div>
+    </div>
+    <div class="header-icons">
+      <button class="icon-btn" id="langBtn" aria-label="تغيير اللغة" title="تغيير اللغة">🌐</button>
+      <button class="icon-btn" id="acctBtn" aria-label="الحساب" title="تسجيل الدخول">👤</button>
+      <button class="icon-btn" id="searchBtn" aria-label="بحث" title="بحث">🔍</button>
+    </div>
+  </div>
+  <div class="navstrip">
+    <div class="wrap navstrip-inner">
+      <button class="navtoggle" id="navToggle" aria-label="فتح القائمة" aria-expanded="false">☰</button>
+      <nav id="mainNav">
+        <a href="#hero" class="active">الرئيسية</a>
+        <a href="#live">مباشر</a>
+        <a href="#news">الأخبار</a>
+        <a href="#tournaments">البطولات</a>
+        <a href="#standings">الترتيب</a>
+        <a href="#player-stats">إحصائيات اللاعبين</a>
+        <div class="nav-drop">
+          <button id="mediaDropBtn" aria-expanded="false">الوسائط ▾</button>
+          <div class="nav-drop-panel" id="mediaDropPanel">
+            <a href="#highlights">ملخصات</a>
+            <a href="#interviews">المقابلات</a>
+            <a href="#podcast">البودكاست</a>
+            <a href="#documentaries">وثائقيات</a>
+          </div>
+        </div>
+        <a href="#newsletter">النشرة</a>
+        <a href="#games">الألعاب</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="hero">
+  <svg class="bracket-bg" viewBox="0 0 1180 420" preserveAspectRatio="none" aria-hidden="true">
+    <g stroke="#49D6CE" stroke-opacity="0.14" stroke-width="1.4" fill="none">
+      <path d="M40 60 H140 M140 60 V110 M140 110 H220"/>
+      <path d="M40 160 H140 M140 160 V110"/>
+      <path d="M40 260 H140 M140 260 V310 M140 310 H220"/>
+      <path d="M40 360 H140 M140 360 V310"/>
+      <path d="M220 110 V210 M220 210 H300"/>
+      <path d="M220 310 V210"/>
+    </g>
+    <g stroke="#D4A94A" stroke-opacity="0.10" stroke-width="1.4" fill="none">
+      <path d="M1140 40 H1040 M1040 40 V90 M1040 90 H960"/>
+      <path d="M1140 140 H1040 M1040 140 V90"/>
+      <path d="M960 90 V190 M960 190 H880"/>
+    </g>
+  </svg>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="kicker"><span class="dot-live" aria-hidden="true"></span> نقل مباشر — نهائي البطولة الخليجية</div>
+      <h1>سهرة الحسم: من يرفع كأس الدرع الذهبي الليلة؟</h1>
+      <p class="dek">بعد أسبوعين من المواجهات المحتدمة، يلتقي "نسور الرمال" و"فيلق الشفق" في المباراة الفاصلة لبطولة الدرع الذهبي، وسط ترقب جماهيري كبير وتغطية ميدانية مباشرة من صالة العاصمة.</p>
+      <div class="hero-meta">
+        <span>👁 <span class="tab" id="viewerCount">48,120</span> مشاهد حالياً</span>
+        <span>🗓 الخميس، الساعة ٨:٣٠ مساءً</span>
+        <span>📍 صالة الرياض الإلكترونية</span>
+      </div>
+    </div>
+    <div class="scorecard" aria-label="نتيجة المباراة المباشرة">
+      <div class="tourney-name">نهائي بطولة الدرع الذهبي · الخريطة الرابعة</div>
+      <div class="versus">
+        <div class="team">
+          <div class="team-badge" style="background:var(--gold);">ن.ر</div>
+          <div class="team-name">نسور الرمال</div>
+          <div class="score win">2</div>
+          <div class="map-pips"><span class="pip on"></span><span class="pip on"></span><span class="pip"></span><span class="pip"></span></div>
+        </div>
+        <div class="vs-mid"><span class="dot-live" aria-hidden="true"></span><span>مباشر</span></div>
+        <div class="team">
+          <div class="team-badge" style="background:var(--cyan);">ف.ش</div>
+          <div class="team-name">فيلق الشفق</div>
+          <div class="score">1</div>
+          <div class="map-pips"><span class="pip on"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span></div>
+        </div>
+      </div>
+      <div class="scorecard-foot"><span>أفضل من 5 خرائط</span><span>الوقت المتبقي: <span class="tab" id="matchClock">14:02</span></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="livewrap" id="live">
+  <div class="wrap section" style="border-bottom:none;">
+    <div class="section-head">
+      <div><h2>مباشر الآن</h2><div class="desc">مباريات جارية الآن عبر مختلف البطولات — مرّر لرؤية المزيد</div></div>
+    </div>
+    <div class="live-row" id="liveRow"></div>
+  </div>
+</section>
+
+<section class="section" id="news">
+  <div class="wrap">
+    <div class="section-head">
+      <div><h2>آخر الأخبار</h2><div class="desc">تغطيات وتحليلات من قلب الأحداث، مصنّفة حسب اللعبة</div></div>
+    </div>
+    <div class="pill-tabs" id="newsFilterTabs"></div>
+    <div id="newsFeature"></div>
+    <div class="news-list" id="newsList"></div>
+  </div>
+</section>
+
+<section class="section" id="tournaments">
+  <div class="wrap">
+    <div class="section-head">
+      <div><h2>البطولات</h2><div class="desc">بطولات مفتوحة أو قادمة للتسجيل، حسب اللعبة</div></div>
+    </div>
+    <div class="pill-tabs" id="tourneyGameTabs"></div>
+    <div class="tourney-list" id="tourneyList"></div>
+  </div>
+</section>
+
+<section class="section" id="standings">
+  <div class="wrap">
+    <div class="section-head">
+      <div><h2>الترتيب</h2><div class="desc">ترتيب أو براكيت البطولات القائمة حالياً، حسب نظام كل بطولة</div></div>
+    </div>
+    <div class="pill-tabs" id="standingsTabs"></div>
+    <div id="standingsContent"></div>
+  </div>
+</section>
+
+<section class="section" id="player-stats">
+  <div class="wrap">
+    <div class="section-head">
+      <div><h2>إحصائيات اللاعبين</h2><div class="desc">أرقام أداء اللاعبين، محدّثة باستمرار — تختلف المقاييس حسب اللعبة</div></div>
+    </div>
+    <div class="pill-tabs" id="playerGameTabs"></div>
+    <div class="player-grid" id="playerGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="highlights">
+  <div class="wrap">
+    <div class="section-head">
+      <div><h2>ملخصات</h2><div class="desc">أهم لقطات المباريات بالفيديو</div></div>
+    </div>
+    <div class="media-grid" id="highlightsGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="interviews">
+  <div class="wrap">
+    <div class="section-head">
+      <div><h2>المقابلات</h2><div class="desc">أحاديث مكتوبة ومصوّرة مع اللاعبين والمدربين</div></div>
+    </div>
+    <div class="interview-grid" id="interviewGrid"></div>
+    <div class="media-grid" id="interviewVideoGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="podcast">
+  <div class="wrap">
+    <div class="section-head">
+      <div><h2>البودكاست</h2><div class="desc">حلقات صوت وفيديو في تحليل البطولات وأحاديث خاصة</div></div>
+    </div>
+    <div class="ep-list" id="epList"></div>
+  </div>
+</section>
+
+<section class="section" id="documentaries">
+  <div class="wrap">
+    <div class="section-head">
+      <div><h2>وثائقيات</h2><div class="desc">إنتاجات طويلة وعالية الجودة عن قصص الفرق</div></div>
+    </div>
+    <div class="media-grid" id="docsGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="newsletter">
+  <div class="wrap">
+    <div class="section-head">
+      <div><h2>النشرة</h2><div class="desc">نشرة تآزر الأسبوعية — مواعيد البطولات وأبرز الأخبار كل خميس</div></div>
+    </div>
+    <div class="newsletter-panel">
+      <div><h3>لا تفوّت أي مباراة</h3><p>اشترك الآن واستلم النشرة كل خميس على بريدك الإلكتروني.</p></div>
+      <form class="sub-form" id="subForm">
+        <input type="email" required placeholder="بريدك الإلكتروني" aria-label="البريد الإلكتروني" id="subEmail">
+        <button type="submit">اشتراك</button>
+        <div class="form-note" id="subNote" role="status"></div>
+      </form>
+    </div>
+    <div class="archive-list" id="archiveList"></div>
+  </div>
+</section>
+
+<section class="section" id="games" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="section-head">
+      <div><h2>الألعاب</h2><div class="desc">جرّب مهاراتك بنفس أدوات التدريب اللي يستخدمها المحترفون</div></div>
+    </div>
+    <div class="games-grid">
+
+      <div class="game-widget">
+        <h3>مدرب التصويب</h3>
+        <div class="gw-desc">اضغطي على الأهداف بأسرع وقت ممكن خلال 15 ثانية — نفس فكرة أدوات تدريب لاعبي فالورانت وكونترا سترايك.</div>
+        <button class="gw-play-btn" id="aimStart">ابدأ التحدي</button>
+        <div class="gw-stage" id="aimStage">
+          <div class="gw-hud"><span>الوقت: <span class="tab" id="aimTime">15</span>ث</span><span>الإصابات: <span class="tab" id="aimScore">0</span></span></div>
+          <div class="aim-area" id="aimArea"></div>
+          <div class="gw-result" id="aimResult"></div>
+        </div>
+      </div>
+
+      <div class="game-widget">
+        <h3>مسابقة معلومات</h3>
+        <div class="gw-desc">اختبري معلوماتك عن الفرق والبطولات والألعاب المغطاة بالصحيفة.</div>
+        <button class="gw-play-btn" id="triviaStart">ابدأ المسابقة</button>
+        <div class="gw-stage" id="triviaStage">
+          <div class="gw-hud"><span>السؤال <span class="tab" id="triviaIdx">1</span>/<span id="triviaTotal">5</span></span><span>النقاط: <span class="tab" id="triviaScore">0</span></span></div>
+          <div class="trivia-q" id="triviaQ"></div>
+          <div class="trivia-opts" id="triviaOpts"></div>
+          <div class="gw-result" id="triviaResult"></div>
+        </div>
+      </div>
+
+      <div class="game-widget">
+        <h3>اختبار سرعة الضغط</h3>
+        <div class="gw-desc">كم ضغطة تقدرين توصلين خلال 5 ثوانٍ؟ مقياس تستخدمه ألعاب الاستراتيجية لقياس الأداء (APM).</div>
+        <button class="gw-play-btn" id="clickStart">ابدأ الاختبار</button>
+        <div class="gw-stage" id="clickStage">
+          <div class="gw-hud"><span>الوقت المتبقي: <span class="tab" id="clickTime">5.0</span>ث</span><span>الضغطات: <span class="tab" id="clickCount">0</span></span></div>
+          <button class="click-big-btn" id="clickBtn">اضغط هنا</button>
+          <div class="gw-result" id="clickResult"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="worldmap-wrap wrap">
+  <div class="section-head">
+    <div><h2>خريطة الأخبار العالمية</h2><div class="desc">مواقع أبرز الأحداث حول العالم — اضغطي على أي دائرة لعرض أخبارها</div></div>
+  </div>
+  <div class="map-shell">
+    <svg id="worldSvg" viewBox="0 0 1000 480" style="width:100%;height:auto;" aria-label="خريطة العالم">
+      <g fill="#452060" opacity="0.55" id="continentsGroup"></g>
+      <g id="markersGroup"></g>
+    </svg>
+    <div class="map-legend"><span><span class="dot-live" style="animation:none;background:var(--gold);"></span> دولة فيها خبر — اضغطي للتفاصيل</span></div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="brand" style="font-size:22px;">تآزر</div>
+        <p>صحيفة إلكترونية سعودية متخصصة بالكامل في عالم الرياضات الإلكترونية — بطولات، نتائج، أخبار ومقابلات في مكان واحد.</p>
+      </div>
+      <div><h4>الأقسام</h4><ul>
+        <li><a href="#news">الأخبار</a></li>
+        <li><a href="#tournaments">البطولات</a></li>
+        <li><a href="#standings">الترتيب</a></li>
+        <li><a href="#player-stats">إحصائيات اللاعبين</a></li>
+      </ul></div>
+      <div><h4>الوسائط</h4><ul>
+        <li><a href="#highlights">ملخصات</a></li>
+        <li><a href="#interviews">المقابلات</a></li>
+        <li><a href="#podcast">البودكاست</a></li>
+        <li><a href="#documentaries">وثائقيات</a></li>
+      </ul></div>
+      <div><h4>عن الصحيفة</h4><ul>
+        <li><a href="#">من نحن</a></li>
+        <li><a href="#">فريق العمل</a></li>
+        <li><a href="#">تواصل معنا</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 تآزر — جميع الحقوق محفوظة</span><span>مشروع تخرج · صحافة رقمية متخصصة</span></div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <h3 id="modalTitle">أخبار</h3>
+    <div id="modalBody"></div>
+    <button class="modal-close" id="modalClose">إغلاق</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  function el(tag, cls, html){ var e=document.createElement(tag); if(cls) e.className=cls; if(html!==undefined) e.innerHTML=html; return e; }
+
+  function makeTabs(container, items, getLabel, onSelect){
+    container.innerHTML = "";
+    items.forEach(function(item, i){
+      var btn = el("button","pill-tab"+(i===0?" active":""), getLabel(item));
+      btn.addEventListener("click", function(){
+        Array.prototype.forEach.call(container.children, function(c){ c.classList.remove("active"); });
+        btn.classList.add("active");
+        onSelect(item);
+      });
+      container.appendChild(btn);
+    });
+    if(items.length) onSelect(items[0]);
+  }
+
+  var GAMES = ["فالورانت","البطل الأسطوري","كونترا سترايك","فيفا التنافسي"];
+  var GAME_COLORS = {"فالورانت":"#49D6CE","البطل الأسطوري":"#D4A94A","كونترا سترايك":"#E2536B","فيفا التنافسي":"#8FB6D9"};
+  var GAME_INITIALS = {"فالورانت":"ف","البطل الأسطوري":"ب.أ","كونترا سترايك":"ك.س","فيفا التنافسي":"فيفا"};
+
+  var LIVE = [
+    {game:"فالورانت", a:"نسور الرمال", b:"فيلق الشفق", sa:2, sb:1, status:"الخريطة 4 · جارية"},
+    {game:"كونترا سترايك", a:"صقور الشمال", b:"درع الوادي", sa:1, sb:1, status:"الشوط الثاني"},
+    {game:"فالورانت", a:"عاصفة الجنوب", b:"نور الصحراء", sa:0, sb:2, status:"الخريطة 3"},
+    {game:"البطل الأسطوري", a:"فرسان الخليج", b:"أبراج النخيل", sa:1, sb:0, status:"الدقيقة 22"}
+  ];
+
+  var NEWS = [
+    {feature:true, game:"فالورانت", title:"كيف تحول 'نسور الرمال' من فريق ناشئ إلى منافس على اللقب في موسم واحد؟", desc:"رحلة الفريق منذ التأسيس وحتى الوصول لنهائي الدرع الذهبي، بالأرقام والتحليل.", meta:"قبل 3 ساعات", country:"السعودية"},
+    {game:"فالورانت", title:"لاعب دولي ينضم إلى صفوف 'فيلق الشفق' قبل بداية الموسم القادم", meta:"قبل 5 ساعات", country:"فرنسا"},
+    {game:"كونترا سترايك", title:"الإعلان عن مواعيد كأس الشمال بجائزة مالية مضاعفة", meta:"أمس", country:"السعودية"},
+    {game:"البطل الأسطوري", title:"هل يحتاج نظام النقاط في الدوري إلى تعديل قبل الموسم الجديد؟", meta:"أمس", country:"كوريا الجنوبية"},
+    {game:"فيفا التنافسي", title:"مدرب 'صقور الشمال': إعداد الفريق ذهنياً لا يقل أهمية عن التدريب الفني", meta:"قبل يومين", country:"الولايات المتحدة"},
+    {game:"كونترا سترايك", title:"تحدي المحترفين ينطلق الثلاثاء بمشاركة 12 فريقاً", meta:"قبل يومين", country:"السعودية"}
+  ];
+
+  var TOURNEYS = {
+    "فالورانت":[
+      {name:"كأس الشمال", status:"open", statusLabel:"مفتوح للتسجيل", deadline:"التسجيل حتى ٢٨ ربيع الآخر", teams:"18 / 32 فريق"},
+      {name:"تصفيات الجنوب", status:"soon", statusLabel:"يفتح قريباً", deadline:"يفتح التسجيل الأحد القادم", teams:"0 / 24 فريق"},
+      {name:"الدرع الذهبي — الموسم القادم", status:"closed", statusLabel:"التسجيل مغلق", deadline:"أُغلق التسجيل", teams:"32 / 32 فريق"}
+    ],
+    "البطل الأسطوري":[
+      {name:"دوري المحترفين — الموسم 4", status:"open", statusLabel:"مفتوح للتسجيل", deadline:"التسجيل حتى نهاية الشهر", teams:"9 / 16 فريق"},
+      {name:"كأس الخليج", status:"soon", statusLabel:"يفتح قريباً", deadline:"يفتح بعد أسبوعين", teams:"0 / 20 فريق"}
+    ],
+    "كونترا سترايك":[
+      {name:"بطولة الساحل", status:"closed", statusLabel:"التسجيل مغلق", deadline:"البطولة جارية الآن", teams:"16 / 16 فريق"},
+      {name:"تحدي المحترفين", status:"open", statusLabel:"مفتوح للتسجيل", deadline:"التسجيل حتى الثلاثاء", teams:"5 / 12 فريق"}
+    ],
+    "فيفا التنافسي":[
+      {name:"كأس الأندية — الموسم القادم", status:"soon", statusLabel:"يفتح قريباً", deadline:"يعلن الموعد لاحقاً", teams:"0 / 32 فريق"}
+    ]
+  };
+
+  var ACTIVE_STANDINGS = {
+    "الدرع الذهبي — فالورانت":{
+      type:"league",
+      table:[["نسور الرمال",12,10,2,30],["فيلق الشفق",12,9,3,27],["صقور الشمال",12,7,5,21],["درع الوادي",12,6,6,18],["عاصفة الجنوب",12,4,8,12],["نور الصحراء",12,2,10,6]],
+      upcoming:[["نسور الرمال ضد فيلق الشفق","اليوم ٨:٣٠ م"],["صقور الشمال ضد درع الوادي","غداً ٦:٠٠ م"]]
+    },
+    "بطولة الساحل — كونترا سترايك":{
+      type:"bracket",
+      winners:[
+        [ {a:"صقور الشمال",b:"أبراج النخيل",sa:2,sb:0}, {a:"درع الوادي",b:"فرسان الخليج",sa:2,sb:1} ],
+        [ {a:"صقور الشمال",b:"درع الوادي",sa:null,sb:null} ]
+      ],
+      losers:[
+        [ {a:"أبراج النخيل",b:"فرسان الخليج",sa:1,sb:2} ],
+        [ {a:"فرسان الخليج",b:"TBD",sa:null,sb:null} ]
+      ]
+    }
+  };
+
+  var PLAYER_STATS = {
+    "فالورانت":[
+      {name:"محمد العتيبي", team:"نسور الرمال", stats:[["K/D","1.42"],["ADR","181"],["HS%","44%"]]},
+      {name:"فيصل الحربي", team:"فيلق الشفق", stats:[["K/D","1.29"],["ADR","165"],["HS%","39%"]]},
+      {name:"يوسف القرني", team:"صقور الشمال", stats:[["K/D","1.18"],["ADR","150"],["HS%","35%"]]},
+      {name:"عبدالعزيز الدوسري", team:"درع الوادي", stats:[["K/D","1.05"],["ADR","142"],["HS%","31%"]]}
+    ],
+    "كونترا سترايك":[
+      {name:"خالد الشمري", team:"صقور الشمال", stats:[["K/D","1.35"],["ADR","88"],["HS%","52%"]]},
+      {name:"تركي الزهراني", team:"درع الوادي", stats:[["K/D","1.21"],["ADR","79"],["HS%","46%"]]}
+    ],
+    "البطل الأسطوري":[
+      {name:"سلمان المطيري", team:"فرسان الخليج", stats:[["KDA","4.2"],["ذهب/د","412"],["مساعدات","8.1"]]},
+      {name:"بندر العنزي", team:"أبراج النخيل", stats:[["KDA","3.6"],["ذهب/د","388"],["مساعدات","6.4"]]}
+    ],
+    "فيفا التنافسي":[
+      {name:"عمر الغامدي", team:"منتخب الأندية", stats:[["أهداف","14"],["تمريرات حاسمة","9"],["نظافة شباك","5"]]}
+    ]
+  };
+
+  var HIGHLIGHTS = [
+    {game:"فالورانت", title:"أفضل 5 إصابات من نهائي الدرع الذهبي", dur:"3:12"},
+    {game:"كونترا سترايك", title:"جولة حاسمة من نصف نهائي بطولة الساحل", dur:"2:40"},
+    {game:"البطل الأسطوري", title:"عودة أسطورية لفريق فرسان الخليج", dur:"4:05"}
+  ];
+
+  var INTERVIEWS_TEXT = [
+    {quote:"الضغط النفسي في المباراة الفاصلة أصعب من أي تدريب. الفريق الذي يتحكم بأعصابه هو من يرفع الكأس.", name:"عبدالله السالم", role:"قائد فريق نسور الرمال"},
+    {quote:"التسجيل المبكر في البطولات يعطي الفريق وقتاً أطول للتحضير، وهذا فرق كبير على مستوى الاحتراف.", name:"سارة القحطاني", role:"مدربة فريق درع الوادي"}
+  ];
+  var INTERVIEWS_VIDEO = [
+    {game:"فالورانت", title:"مقابلة فيديو: كواليس تحضير فيلق الشفق للنهائي", dur:"9:48"},
+    {game:"كونترا سترايك", title:"حوار مصوّر مع مدرب صقور الشمال بعد التأهل", dur:"6:22"}
+  ];
+
+  var EPISODES = [
+    {title:"تحليل نهائي الدرع الذهبي قبل الحسم", guest:"مع محللين فالورانت", dur:"38 د", date:"هذا الأسبوع", type:"audio"},
+    {title:"كيف تبني فريق إلكتروني من الصفر؟", guest:"ضيف: مدير فريق صقور الشمال", dur:"51 د", date:"الأسبوع الماضي", type:"video"},
+    {title:"داخل معسكر فريق فيلق الشفق", guest:"تغطية خاصة", dur:"29 د", date:"قبل أسبوعين", type:"video"}
+  ];
+
+  var DOCS = [
+    {team:"نسور الرمال", title:"الطريق إلى القمة: قصة نسور الرمال", year:"2026", dur:"32 د"},
+    {team:"فيلق الشفق", title:"من الهزيمة إلى الصدارة", year:"2025", dur:"41 د"}
+  ];
+
+  var ARCHIVE = [
+    {num:"العدد 14", title:"نهائيات الدرع الذهبي + جدول التصفيات الجديدة", date:"الخميس الماضي"},
+    {num:"العدد 13", title:"أبرز الانتقالات قبل بداية الموسم", date:"قبل أسبوعين"},
+    {num:"العدد 12", title:"مواعيد كأس الشمال وتفاصيل التسجيل", date:"قبل 3 أسابيع"}
+  ];
+
+  var TRIVIA = [
+    {q:"كم عدد الخرائط في مباراة فاصلة (Best of) نموذجية بفالورانت؟", opts:["3","5","7"], correct:1},
+    {q:"وش يعني اختصار KDA؟", opts:["قتل/موت/مساعدة","سرعة/دقة/هجوم","نقاط/مستوى/عتاد"], correct:0},
+    {q:"أي نوع بطولات يستخدم 'براكيت الخاسرين'؟", opts:["دوري نقاط", "إقصاء مزدوج", "ودية"], correct:1},
+    {q:"وش يقيس مؤشر ADR بالألعاب التصويبية؟", opts:["متوسط الضرر بالجولة","عدد الجولات","سرعة الحركة"], correct:0},
+    {q:"كم فريق عادة يشارك ببطولة إقصاء مزدوج متوسطة الحجم؟", opts:["4","8-16","100"], correct:1}
+  ];
+
+  // ---------- Live ----------
+  var liveRow = document.getElementById("liveRow");
+  LIVE.forEach(function(m){
+    var chip = el("div","live-chip");
+    chip.appendChild(el("div","game-tag", m.game));
+    chip.appendChild(el("div","lc-versus", "<span><b>"+m.a+"</b></span><span class=\"lc-score tab\">"+m.sa+" – "+m.sb+"</span><span><b>"+m.b+"</b></span>"));
+    chip.appendChild(el("div","lc-status", '<span class="dot-live"></span> '+m.status));
+    liveRow.appendChild(chip);
+  });
+
+  // ---------- News ----------
+  var newsFeatureEl = document.getElementById("newsFeature");
+  var newsListEl = document.getElementById("newsList");
+  function renderNews(filterGame){
+    newsFeatureEl.innerHTML = "";
+    newsListEl.innerHTML = "";
+    var filtered = NEWS.filter(function(n){ return filterGame === "الكل" || n.game === filterGame; });
+    var feature = filtered.find(function(n){ return n.feature; }) || filtered[0];
+    filtered.forEach(function(n){
+      if(n === feature){
+        var f = el("div","news-feature");
+        f.appendChild(el("span","game-chip", n.game));
+        f.appendChild(el("h3", null, n.title));
+        if(n.desc) f.appendChild(el("p", null, n.desc));
+        f.appendChild(el("div","news-time", n.meta));
+        f.querySelector(".game-chip").style.background = GAME_COLORS[n.game]+"22";
+        f.querySelector(".game-chip").style.color = GAME_COLORS[n.game];
+        f.querySelector(".game-chip").style.marginBottom = "14px";
+        newsFeatureEl.appendChild(f);
+        return;
+      }
+      var row = el("div","news-row");
+      var thumb = el("div","news-thumb", GAME_INITIALS[n.game]);
+      thumb.style.background = GAME_COLORS[n.game];
+      row.appendChild(thumb);
+      var body = el("div");
+      body.appendChild(el("h4", null, n.title));
+      var meta = el("div","news-row-meta");
+      var chip = el("span","game-chip", n.game);
+      chip.style.background = GAME_COLORS[n.game]+"22";
+      chip.style.color = GAME_COLORS[n.game];
+      meta.appendChild(chip);
+      meta.appendChild(el("span","news-time", n.meta));
+      body.appendChild(meta);
+      row.appendChild(body);
+      newsListEl.appendChild(row);
+    });
+  }
+  makeTabs(document.getElementById("newsFilterTabs"), ["الكل"].concat(GAMES), function(g){return g;}, renderNews);
+
+  // ---------- Tournaments ----------
+  var tourneyList = document.getElementById("tourneyList");
+  function renderTourneys(game){
+    tourneyList.innerHTML = "";
+    var list = TOURNEYS[game] || [];
+    if(!list.length){ tourneyList.appendChild(el("div","empty-state", '<div class="big">🏳️</div>لا توجد بطولات مسجّلة لهذه اللعبة حالياً')); return; }
+    list.forEach(function(t){
+      var row = el("div","tourney-row");
+      row.appendChild(el("div", null, "<h3>"+t.name+"</h3><div class=\"meta\"><span>"+t.deadline+"</span></div>"));
+      row.appendChild(el("span","reg-count", t.teams));
+      row.appendChild(el("span","reg-status "+t.status, t.statusLabel));
+      var btn = el("button","reg-btn", t.status==="open" ? "سجل فريقك" : (t.status==="soon" ? "تنبيه عند الفتح" : "التسجيل مغلق"));
+      if(t.status==="closed") btn.disabled = true;
+      row.appendChild(btn);
+      tourneyList.appendChild(row);
+    });
+  }
+  makeTabs(document.getElementById("tourneyGameTabs"), GAMES, function(g){return g;}, renderTourneys);
+
+  // ---------- Standings (league or bracket) ----------
+  var standingsContent = document.getElementById("standingsContent");
+  var activeKeys = Object.keys(ACTIVE_STANDINGS);
+
+  function bmatchHTML(m){
+    var aWin = m.sa !== null && m.sa > m.sb;
+    var bWin = m.sa !== null && m.sb > m.sa;
+    return '<div class="bmatch">'+
+      '<div class="bteam'+(aWin?' winner':'')+'"><span>'+m.a+'</span><span class="bscore">'+(m.sa===null?'-':m.sa)+'</span></div>'+
+      '<div class="bteam'+(bWin?' winner':'')+'"><span>'+m.b+'</span><span class="bscore">'+(m.sb===null?'-':m.sb)+'</span></div>'+
+      '</div>';
+  }
+  function renderBracketRounds(rounds){
+    var wrap = el("div","bracket-rounds");
+    rounds.forEach(function(round, i){
+      var col = el("div","bracket-round");
+      col.appendChild(el("div","bracket-round-title", "الجولة "+(i+1)));
+      round.forEach(function(m){ col.appendChild(el("div", null, bmatchHTML(m))); });
+      wrap.appendChild(col);
+    });
+    return wrap;
+  }
+
+  function renderStandings(key){
+    standingsContent.innerHTML = "";
+    if(!key){ standingsContent.appendChild(el("div","empty-state", '<div class="big">🏆</div>لا توجد بطولة قائمة حالياً — تابع قسم البطولات لمعرفة مواعيد القادمة')); return; }
+    var data = ACTIVE_STANDINGS[key];
+    if(data.type === "league"){
+      var layout = el("div","standings-layout");
+      var table = el("table","standings");
+      table.innerHTML = "<thead><tr><th>#</th><th>الفريق</th><th class=\"num\">لعب</th><th class=\"num\">فوز</th><th class=\"num\">خسارة</th><th class=\"num\">النقاط</th></tr></thead>";
+      var tbody = el("tbody");
+      data.table.forEach(function(row, i){
+        var tr = el("tr");
+        tr.innerHTML = "<td class=\"rank\">"+(i+1)+"</td><td class=\"team\">"+row[0]+"</td><td class=\"num tab\">"+row[1]+"</td><td class=\"num tab\">"+row[2]+"</td><td class=\"num tab\">"+row[3]+"</td><td class=\"num tab\">"+row[4]+"</td>";
+        tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+      layout.appendChild(table);
+      var box = el("div","upcoming-box");
+      box.appendChild(el("h4", null, "المباريات القادمة"));
+      data.upcoming.forEach(function(u){ box.appendChild(el("div","upcoming-row", "<span class=\"match\">"+u[0]+"</span><span class=\"time tab\">"+u[1]+"</span>")); });
+      layout.appendChild(box);
+      standingsContent.appendChild(layout);
+    } else {
+      var scrollWrap = el("div","bracket-scroll");
+      var winBlock = el("div","bracket-block");
+      winBlock.appendChild(el("div","bracket-label win", "🏆 براكيت الفائزين"));
+      winBlock.appendChild(renderBracketRounds(data.winners));
+      var loseBlock = el("div","bracket-block");
+      loseBlock.appendChild(el("div","bracket-label lose", "براكيت الخاسرين (إقصاء مزدوج)"));
+      loseBlock.appendChild(renderBracketRounds(data.losers));
+      scrollWrap.appendChild(winBlock);
+      scrollWrap.appendChild(loseBlock);
+      standingsContent.appendChild(scrollWrap);
+    }
+  }
+  if(activeKeys.length){ makeTabs(document.getElementById("standingsTabs"), activeKeys, function(k){return k;}, renderStandings); }
+  else { document.getElementById("standingsTabs").style.display = "none"; renderStandings(null); }
+
+  // ---------- Player stats ----------
+  var playerGrid = document.getElementById("playerGrid");
+  function renderPlayers(game){
+    playerGrid.innerHTML = "";
+    var list = PLAYER_STATS[game] || [];
+    list.forEach(function(p){
+      var card = el("div","player-card");
+      var badge = el("div","player-badge", p.name.split(" ").map(function(w){return w[0];}).join(""));
+      badge.style.background = GAME_COLORS[game];
+      card.appendChild(badge);
+      card.appendChild(el("h4", null, p.name));
+      card.appendChild(el("div","p-team", p.team));
+      var statsRow = el("div","p-stats");
+      p.stats.forEach(function(s){ statsRow.appendChild(el("div","p-stat", "<span class=\"v\">"+s[1]+"</span><span class=\"l\">"+s[0]+"</span>")); });
+      card.appendChild(statsRow);
+      playerGrid.appendChild(card);
+    });
+  }
+  makeTabs(document.getElementById("playerGameTabs"), GAMES, function(g){return g;}, renderPlayers);
+
+  // ---------- Highlights ----------
+  var highlightsGrid = document.getElementById("highlightsGrid");
+  HIGHLIGHTS.forEach(function(h){
+    var card = el("div","media-card");
+    var thumb = el("div","media-thumb", '<div class="play-overlay">▶</div>');
+    thumb.style.background = "linear-gradient(135deg,"+GAME_COLORS[h.game]+"33,var(--bg-panel-2))";
+    card.appendChild(thumb);
+    var body = el("div","media-body");
+    body.appendChild(el("h4", null, h.title));
+    body.appendChild(el("div","media-meta", "<span>"+h.game+"</span><span>"+h.dur+"</span>"));
+    card.appendChild(body);
+    highlightsGrid.appendChild(card);
+  });
+
+  // ---------- Interviews ----------
+  var interviewGrid = document.getElementById("interviewGrid");
+  INTERVIEWS_TEXT.forEach(function(iv){
+    var card = el("div","spotlight");
+    card.appendChild(el("div","tag", "مقابلة نصية"));
+    card.appendChild(el("blockquote", null, "\""+iv.quote+"\""));
+    var initials = iv.name.split(" ").map(function(w){return w[0];}).join(".");
+    card.appendChild(el("div","who", '<div class="who-badge">'+initials+'</div><div><div class="who-name">'+iv.name+'</div><div class="who-role">'+iv.role+'</div></div>'));
+    interviewGrid.appendChild(card);
+  });
+  var interviewVideoGrid = document.getElementById("interviewVideoGrid");
+  INTERVIEWS_VIDEO.forEach(function(v){
+    var card = el("div","media-card");
+    var thumb = el("div","media-thumb", '<div class="play-overlay">▶</div>');
+    thumb.style.background = "linear-gradient(135deg,"+GAME_COLORS[v.game]+"33,var(--bg-panel-2))";
+    card.appendChild(thumb);
+    var body = el("div","media-body");
+    body.appendChild(el("h4", null, v.title));
+    body.appendChild(el("div","media-meta", "<span>"+v.game+"</span><span>"+v.dur+"</span>"));
+    card.appendChild(body);
+    interviewVideoGrid.appendChild(card);
+  });
+
+  // ---------- Podcast ----------
+  var epList = document.getElementById("epList");
+  function waveform(){ var bars=""; for(var i=0;i<16;i++){ var h=6+Math.round(Math.random()*16); bars+='<span style="height:'+h+'px"></span>'; } return '<div class="waveform">'+bars+'</div>'; }
+  EPISODES.forEach(function(e){
+    var row = el("div","ep-row");
+    var playBtn = el("button","play-btn", "▶");
+    playBtn.setAttribute("aria-label", "تشغيل حلقة: "+e.title);
+    row.appendChild(playBtn);
+    var body = el("div","ep-body");
+    body.appendChild(el("h4", null, e.title));
+    var meta = el("div","ep-meta");
+    meta.appendChild(el("span","ep-type", e.type==="video" ? "فيديو" : "صوت"));
+    meta.appendChild(el("span", null, e.guest));
+    meta.appendChild(el("span", null, e.date));
+    body.appendChild(meta);
+    row.appendChild(body);
+    if(e.type === "video"){
+      var thumb = el("div","ep-thumb", '<div class="mini-play">▶</div>');
+      thumb.style.background = "var(--bg-panel-2)";
+      row.appendChild(thumb);
+    } else {
+      row.appendChild(el("div","ep-dur", waveform()+'<div style="text-align:center;font-size:11px;color:var(--muted);margin-top:4px;">'+e.dur+'</div>'));
+    }
+    epList.appendChild(row);
+  });
+
+  // ---------- Documentaries ----------
+  var docsGrid = document.getElementById("docsGrid");
+  DOCS.forEach(function(d){
+    var card = el("div","media-card");
+    var thumb = el("div","media-thumb", '<div class="play-overlay">▶</div>');
+    thumb.style.background = "linear-gradient(135deg,var(--gold-dim)55,var(--bg-panel-2))";
+    card.appendChild(thumb);
+    var body = el("div","media-body");
+    body.appendChild(el("h4", null, d.title));
+    body.appendChild(el("div","media-meta", "<span>"+d.team+"</span><span>"+d.year+"</span><span>"+d.dur+"</span>"));
+    card.appendChild(body);
+    docsGrid.appendChild(card);
+  });
+
+  // ---------- Newsletter archive ----------
+  var archiveList = document.getElementById("archiveList");
+  ARCHIVE.forEach(function(a){ archiveList.appendChild(el("div","archive-row", '<span class="num">'+a.num+'</span><span class="title">'+a.title+'</span><span class="date">'+a.date+'</span>')); });
+
+  // ---------- Nav: dropdown + mobile toggle ----------
+  var mediaDropBtn = document.getElementById("mediaDropBtn");
+  var mediaDropPanel = document.getElementById("mediaDropPanel");
+  mediaDropBtn.addEventListener("click", function(e){
+    e.stopPropagation();
+    var open = mediaDropPanel.classList.toggle("open");
+    mediaDropBtn.setAttribute("aria-expanded", open ? "true":"false");
+  });
+  document.addEventListener("click", function(){ mediaDropPanel.classList.remove("open"); });
+  mediaDropPanel.addEventListener("click", function(e){ e.stopPropagation(); });
+
+  var navToggle = document.getElementById("navToggle");
+  var mainNav = document.getElementById("mainNav");
+  navToggle.addEventListener("click", function(){
+    var open = mainNav.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", open ? "true":"false");
+  });
+  mainNav.querySelectorAll("a").forEach(function(a){ a.addEventListener("click", function(){ mainNav.classList.remove("open"); mediaDropPanel.classList.remove("open"); }); });
+
+  // ---------- Header icon buttons (front-end demo) ----------
+  document.getElementById("langBtn").addEventListener("click", function(){ alert("تبديل اللغة — يحتاج نسخة إنجليزية كاملة من المحتوى لاحقاً."); });
+  document.getElementById("acctBtn").addEventListener("click", function(){ alert("تسجيل الدخول / إنشاء حساب — يحتاج ربط بنظام حسابات فعلي."); });
+  document.getElementById("searchBtn").addEventListener("click", function(){ alert("بحث بالموقع — يحتاج فهرسة فعلية للمحتوى لاحقاً."); });
+
+  // ---------- Live match clock ----------
+  var clockEl = document.getElementById("matchClock");
+  var totalSeconds = 14*60+2;
+  setInterval(function(){
+    if(totalSeconds <= 0){ totalSeconds = 14*60+2; }
+    totalSeconds--;
+    var m = Math.floor(totalSeconds/60), s = totalSeconds % 60;
+    clockEl.textContent = (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+  }, 1000);
+
+  var viewerEl = document.getElementById("viewerCount");
+  var base = 48120;
+  setInterval(function(){ base += Math.floor(Math.random()*9) - 3; viewerEl.textContent = base.toLocaleString("en-US"); }, 2500);
+
+  // ---------- Newsletter form ----------
+  var subForm = document.getElementById("subForm");
+  var subNote = document.getElementById("subNote");
+  subForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    var email = document.getElementById("subEmail").value.trim();
+    if(email){ subNote.textContent = "تم تسجيل بريدك الإلكتروني، أهلاً بك في تآزر."; subForm.reset(); }
+  });
+
+  // ---------- Games: Aim trainer ----------
+  var aimArea = document.getElementById("aimArea");
+  var aimScoreEl = document.getElementById("aimScore");
+  var aimTimeEl = document.getElementById("aimTime");
+  var aimResult = document.getElementById("aimResult");
+  var aimTimer = null, aimScore = 0, aimSeconds = 15;
+  function spawnTarget(){
+    aimArea.innerHTML = "";
+    var t = el("button","aim-target");
+    var maxX = aimArea.clientWidth - 34, maxY = aimArea.clientHeight - 34;
+    t.style.right = Math.max(0,Math.floor(Math.random()*maxX))+"px";
+    t.style.top = Math.max(0,Math.floor(Math.random()*maxY))+"px";
+    t.addEventListener("click", function(){ aimScore++; aimScoreEl.textContent = aimScore; spawnTarget(); });
+    aimArea.appendChild(t);
+  }
+  document.getElementById("aimStart").addEventListener("click", function(){
+    document.getElementById("aimStage").classList.add("on");
+    aimScore = 0; aimSeconds = 15; aimScoreEl.textContent = "0"; aimTimeEl.textContent = "15"; aimResult.textContent = "";
+    spawnTarget();
+    if(aimTimer) clearInterval(aimTimer);
+    aimTimer = setInterval(function(){
+      aimSeconds--; aimTimeEl.textContent = aimSeconds;
+      if(aimSeconds <= 0){ clearInterval(aimTimer); aimArea.innerHTML = ""; aimResult.textContent = "انتهى الوقت! إصاباتك: "+aimScore; }
+    }, 1000);
+  });
+
+  // ---------- Games: Trivia ----------
+  var triviaIdx = 0, triviaScore = 0;
+  var triviaIdxEl = document.getElementById("triviaIdx");
+  var triviaScoreEl = document.getElementById("triviaScore");
+  var triviaQEl = document.getElementById("triviaQ");
+  var triviaOptsEl = document.getElementById("triviaOpts");
+  var triviaResult = document.getElementById("triviaResult");
+  document.getElementById("triviaTotal").textContent = TRIVIA.length;
+  function renderTriviaQ(){
+    triviaResult.textContent = "";
+    if(triviaIdx >= TRIVIA.length){
+      triviaQEl.textContent = "";
+      triviaOptsEl.innerHTML = "";
+      triviaResult.textContent = "انتهت المسابقة! نتيجتك: "+triviaScore+" من "+TRIVIA.length;
+      return;
+    }
+    var q = TRIVIA[triviaIdx];
+    triviaIdxEl.textContent = triviaIdx+1;
+    triviaQEl.textContent = q.q;
+    triviaOptsEl.innerHTML = "";
+    q.opts.forEach(function(opt, i){
+      var b = el("button","trivia-opt", opt);
+      b.addEventListener("click", function(){
+        Array.prototype.forEach.call(triviaOptsEl.children, function(c){ c.style.pointerEvents = "none"; });
+        if(i === q.correct){ b.classList.add("correct"); triviaScore++; triviaScoreEl.textContent = triviaScore; }
+        else { b.classList.add("wrong"); triviaOptsEl.children[q.correct].classList.add("correct"); }
+        setTimeout(function(){ triviaIdx++; renderTriviaQ(); }, 900);
+      });
+      triviaOptsEl.appendChild(b);
+    });
+  }
+  document.getElementById("triviaStart").addEventListener("click", function(){
+    document.getElementById("triviaStage").classList.add("on");
+    triviaIdx = 0; triviaScore = 0; triviaScoreEl.textContent = "0";
+    renderTriviaQ();
+  });
+
+  // ---------- Games: Click speed ----------
+  var clickCount = 0, clickTimer = null, clickRunning = false, clickSeconds = 5;
+  var clickCountEl = document.getElementById("clickCount");
+  var clickTimeEl = document.getElementById("clickTime");
+  var clickResult = document.getElementById("clickResult");
+  document.getElementById("clickStart").addEventListener("click", function(){
+    document.getElementById("clickStage").classList.add("on");
+    clickCount = 0; clickSeconds = 5; clickRunning = false;
+    clickCountEl.textContent = "0"; clickTimeEl.textContent = "5.0"; clickResult.textContent = "اضغطي الزر بالأسفل للبدء";
+  });
+  document.getElementById("clickBtn").addEventListener("click", function(){
+    if(clickSeconds <= 0 && clickRunning === false && clickCount > 0) return;
+    if(!clickRunning){
+      clickRunning = true; clickCount = 0; clickSeconds = 5; clickCountEl.textContent = "0"; clickResult.textContent = "";
+      var start = Date.now();
+      clickTimer = setInterval(function(){
+        var remaining = 5 - (Date.now()-start)/1000;
+        if(remaining <= 0){
+          clearInterval(clickTimer); clickRunning = false; clickTimeEl.textContent = "0.0";
+          var cps = (clickCount/5).toFixed(1);
+          clickResult.textContent = "النتيجة: "+clickCount+" ضغطة — "+cps+" ضغطة/ثانية";
+        } else { clickTimeEl.textContent = remaining.toFixed(1); }
+      }, 100);
+    }
+    clickCount++; clickCountEl.textContent = clickCount;
+  });
+
+  // ---------- World map ----------
+  var svgNS = "http://www.w3.org/2000/svg";
+  var continentsGroup = document.getElementById("continentsGroup");
+  var markersGroup = document.getElementById("markersGroup");
+
+  var CONTINENTS = [
+    // rough stylized blobs [cx,cy,rx,ry]
+    {cx:190,cy:150,rx:95,ry:75},{cx:150,cy:230,rx:55,ry:40},
+    {cx:255,cy:300,rx:55,ry:95},
+    {cx:500,cy:110,rx:70,ry:45},
+    {cx:520,cy:230,rx:80,ry:110},
+    {cx:700,cy:150,rx:150,ry:90},{cx:650,cy:250,rx:70,ry:60},
+    {cx:820,cy:330,rx:65,ry:35}
+  ];
+  CONTINENTS.forEach(function(c){
+    var e = document.createElementNS(svgNS,"ellipse");
+    e.setAttribute("cx",c.cx); e.setAttribute("cy",c.cy); e.setAttribute("rx",c.rx); e.setAttribute("ry",c.ry);
+    continentsGroup.appendChild(e);
+  });
+
+  var COUNTRY_POS = {
+    "السعودية":{x:565, y:200},
+    "فرنسا":{x:490, y:115},
+    "كوريا الجنوبية":{x:840, y:150},
+    "الولايات المتحدة":{x:195, y:145}
+  };
+
+  var newsByCountry = {};
+  NEWS.forEach(function(n, idx){
+    if(!n.country) return;
+    if(!newsByCountry[n.country]) newsByCountry[n.country] = [];
+    newsByCountry[n.country].push(idx);
+  });
+
+  var modalOverlay = document.getElementById("modalOverlay");
+  var modalTitle = document.getElementById("modalTitle");
+  var modalBody = document.getElementById("modalBody");
+  document.getElementById("modalClose").addEventListener("click", function(){ modalOverlay.classList.remove("open"); });
+  modalOverlay.addEventListener("click", function(e){ if(e.target === modalOverlay) modalOverlay.classList.remove("open"); });
+
+  function goToNewsIndex(idx){
+    modalOverlay.classList.remove("open");
+    var n = NEWS[idx];
+    window.location.hash = "news";
+    document.getElementById("news").scrollIntoView({behavior:"smooth"});
+    // brief highlight cue via alert-free flash on the news section header
+    var head = document.querySelector("#news .section-head");
+    if(head){ head.style.transition="background .3s ease"; head.style.background="rgba(212,169,74,0.15)"; setTimeout(function(){ head.style.background=""; }, 1200); }
+  }
+
+  function openCountryModal(country, idxs){
+    modalTitle.textContent = "أخبار "+country;
+    modalBody.innerHTML = "";
+    idxs.forEach(function(idx){
+      var n = NEWS[idx];
+      var item = el("div","modal-news-item");
+      item.appendChild(el("div","mt", n.title));
+      item.appendChild(el("div","md", n.game+" · "+n.meta));
+      item.addEventListener("click", function(){ goToNewsIndex(idx); });
+      modalBody.appendChild(item);
+    });
+    modalOverlay.classList.add("open");
+  }
+
+  Object.keys(COUNTRY_POS).forEach(function(country){
+    var pos = COUNTRY_POS[country];
+    var idxs = newsByCountry[country] || [];
+    if(!idxs.length) return;
+    var g = document.createElementNS(svgNS,"g");
+    g.setAttribute("class","map-marker");
+    g.setAttribute("tabindex","0");
+    g.setAttribute("role","button");
+    g.setAttribute("aria-label","أخبار "+country);
+
+    var pulse = document.createElementNS(svgNS,"circle");
+    pulse.setAttribute("class","pulse");
+    pulse.setAttribute("cx",pos.x); pulse.setAttribute("cy",pos.y); pulse.setAttribute("r",14);
+    pulse.setAttribute("fill","#D4A94A"); pulse.setAttribute("opacity","0.5");
+    g.appendChild(pulse);
+
+    var dot = document.createElementNS(svgNS,"circle");
+    dot.setAttribute("cx",pos.x); dot.setAttribute("cy",pos.y); dot.setAttribute("r",7);
+    dot.setAttribute("fill","#D4A94A"); dot.setAttribute("stroke","#1B0629"); dot.setAttribute("stroke-width","2");
+    g.appendChild(dot);
+
+    var label = document.createElementNS(svgNS,"text");
+    label.setAttribute("x",pos.x); label.setAttribute("y",pos.y-16); label.setAttribute("text-anchor","middle");
+    label.textContent = country;
+    g.appendChild(label);
+
+    function activate(){
+      if(idxs.length === 1) goToNewsIndex(idxs[0]);
+      else openCountryModal(country, idxs);
+    }
+    g.addEventListener("click", activate);
+    g.addEventListener("keypress", function(e){ if(e.key === "Enter") activate(); });
+    markersGroup.appendChild(g);
+  });
+
+  // ---------- Per-viewer convenience (localStorage, guarded) ----------
+  try{
+    var KEY = "taazr_last_visit";
+    if(!localStorage.getItem(KEY)) localStorage.setItem(KEY, new Date().toISOString());
+  }catch(err){ /* storage unavailable, ignore silently */ }
+
+})();
+</script>
+</body>
+</html>
